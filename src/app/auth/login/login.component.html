@@ -6,7 +6,7 @@
 	
 </div>
 <div
-	class="relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
+	class="relative min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
 	<div class="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
 		<div class="self-start hidden lg:flex flex-col  text-gray-300">
 			
@@ -14,12 +14,12 @@
 			<p class="pr-3 text-sm opacity-75">Are you heart prepared for this battle ?</p>
 		</div>
 	</div>
-	<div class="flex justify-center self-center  z-10">
+	<div class="flex justify-center self-center  z-10 container-card">
 		<div class="p-12 bg-white mx-auto rounded-3xl w-96 ">
 			<div class="mb-7">
-				<h3 class="font-semibold text-2xl text-gray-800">Sign In </h3>
-				<!-- <p class="text-gray-400">Don'thave an account? <a href="#"
-						class="text-sm text-purple-700 hover:text-purple-700">Sign Up</a></p> -->
+				<h3 class="font-semibold text-2xl text-gray-800 signin-title">Sign In </h3>
+				<p class="text-gray-400">Don'thave an account? <a href="auth/register"
+						class="text-sm text-purple-700 hover:text-blue-700">Sign Up</a></p>
 			</div>
 			<div class="space-y-6">
 				<div class="">
@@ -31,7 +31,7 @@
 						<input placeholder="Password" :type="show ? 'password' : 'text'" class="text-sm text-gray-200 px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400">
 						<div class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
 
-							<!-- <svg @click="show = !show" :class="{'hidden': !show, 'block':show }"
+							<!-- <svg (click)="show = !show" 
 								class="h-4 text-purple-700" fill="none" xmlns="http://www.w3.org/2000/svg"
 								viewbox="0 0 576 512">
 								<path fill="currentColor"
@@ -39,7 +39,7 @@
 								</path>
 							</svg>
 
-							<svg @click="show = !show" :class="{'block': !show, 'hidden':show }"
+							<svg (click)="show = !show" 
 								class="h-4 text-purple-700" fill="none" xmlns="http://www.w3.org/2000/svg"
 								viewbox="0 0 640 512">
 								<path fill="currentColor"
@@ -51,16 +51,17 @@
 					</div>
 
 
-					<!-- <div class="flex items-center justify-between">
+					<div class="flex items-center justify-between">
 
 						<div class="text-sm ml-auto">
-							<a href="#" class="text-purple-700 hover:text-purple-600">
+							<a href="#" class="text-purple-700 hover:text-blue-600">
 								Forgot your password?
 							</a>
 						</div>
-					</div> -->
+					</div>
 					<div>
-						<button type="submit" class="w-full flex justify-center bg-purple-800  hover:bg-purple-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+						<button type="submit" (click)="onSubmit()" 
+						class="w-full flex justify-center bg-purple-800  hover:bg-blue-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
                 Sign in
               </button>
 					</div>
@@ -89,7 +90,7 @@
                 </span>
 				</div>
 			</div>
-		</div>
+	</div>
 </div>
 	
 	<footer class=" absolute w-full bottom-0 left-0 z-30">
