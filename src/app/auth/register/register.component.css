@@ -11,3 +11,7 @@
     }
     
 }
+/* Esto seria innecesario pq con tailwind se puede colocar text-black y eliminar otras propiedades de text- y algun color */
+.input-passw{
+    color:black !important;
+}
