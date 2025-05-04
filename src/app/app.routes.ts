@@ -12,11 +12,11 @@ export const routes: Routes = [
         loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTES)
       },
       {
-        path: 'dashboard',
+        path: 'home',
         loadChildren: () => import('./pages/pages.routes').then(m => m.PAGES_ROUTES)
       },
       {
         path: '**',
-        redirectTo: '/login'  // Si hay una ruta no válida, redirige al login
+        redirectTo: 'auth/login'  // Si hay una ruta no válida, redirige al login
       }
 ];
