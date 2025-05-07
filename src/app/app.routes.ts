@@ -17,6 +17,6 @@ export const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'auth/login'  // Si hay una ruta no válida, redirige al login
+        redirectTo: '/auth/login'  // Si hay una ruta no válida, redirige al login
       }
 ];

@@ -12,7 +12,7 @@ export const PAGES_ROUTES: Routes = [
 {
   path: '',
   loadComponent: () => import('./home/home.component'),
-  //canActivate: [authGuard], // Protege la ruta de dashboard, si no hay token, redirige al login
+  // canActivate: [authGuard], // Protege la ruta de dashboard, si no hay token, redirige al login
   children:[
     {
       path: 'dashboard',

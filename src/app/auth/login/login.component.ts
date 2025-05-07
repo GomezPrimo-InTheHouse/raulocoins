@@ -19,7 +19,7 @@ export class LoginComponent {
   // Se importa el ReactiveFormsModule y se inyecta el FormBuilder en el constructor
   LoginForm: FormGroup;
 
-  constructor( private fb: FormBuilder, private router: Router) {
+  constructor( private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.LoginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       codigo: ['', [Validators.required, Validators.minLength(6)]],
@@ -27,25 +27,38 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
-    console.log(this.LoginForm.value);
+  async onSubmit() {
+  
     if(this.LoginForm.valid) {
-      console.log(this.LoginForm.value);
+      
       //aca deberiamos hacer la llamada al servicio de login, y si es correcto, redirigir a la pagina de dashboard
       //y escribir el token en el localStorage o sessionStorage, para que el guard lo pueda leer y redirigir a la pagina de login si no es correcto
 
-      // this.authService.login(this.LoginForm.value).subscribe(
-      //   response => {
-      //     console.log(response);
-      //     // Redirigir a la pagina de dashboard
-      //     this.router.navigate(['/dashboard']);
-      //   },
-      //   error => {
-      //     console.log(error);
-      //     // Mostrar mensaje de error
-      //     this.errorMessage = 'Usuario o contraseña incorrectos';
-      //   }
-      // );
+      let alias:any = this.LoginForm.value.alias;
+      let codigo:any = this.LoginForm.value.codigo;
+      let email:any = this.LoginForm.value.email;
+
+      localStorage.setItem('totpToken',codigo );
+      localStorage.setItem('alias', alias);
+      localStorage.setItem('email', email);
+      
+      this.authService.login(alias, codigo, email).subscribe(
+        (response:any) => {
+         
+
+          if(response.success){
+
+
+
+            // Guardamos el token en el localStorage
+            
+
+            this.router.navigate(['home/dashboard']);
+          }
+          // Redirigir a la pagina de dashboard
+        }
+        
+      );
 
     }
   }

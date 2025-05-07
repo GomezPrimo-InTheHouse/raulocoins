@@ -14,7 +14,8 @@
     <!-- today's money - aca podria ir la cantidad de raulocoins -->
     <div class="p-4 text-right">
       <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today's Money</p>
-      <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">$53k</h4>
+      <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">$ {{user.balance}}</h4>
+      
     </div>
 
     <!-- Porcentaje de incremento 'than last week' -->
@@ -109,115 +110,50 @@
         <thead>
           <tr>
             <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
-              <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Usuario</p>
+              <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">User</p>
             </th>
             <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
-              <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Cantidad</p>
+              <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Amount</p>
             </th>
             <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
-              <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">completion</p>
+              <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Date</p>
             </th>
           </tr>
         </thead>
         <tbody>
-          <!-- table row, representa los datos de una fila -->
-          <!-- aca deberia ir un NG FOR con la data de todas las transferencias echas, dentro del TR -->
-          <tr>
+          <tr *ngFor="let tx of transactions">
             <td class="py-3 px-5 border-b border-blue-gray-50">
               <div class="flex items-center gap-4">
-                <!-- {{data.usuario}} -->
-                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Material XD Version</p>
+                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">
+                  {{ tx.fromUsername }}
+                </p>
               </div>
             </td>
-            
+        
             <td class="py-3 px-5 border-b border-blue-gray-50">
-              <!-- {} -->
-              <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$14,000</p>
+              <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                ${{ tx.amount }}
+              </p>
             </td>
+        
             <td class="py-3 px-5 border-b border-blue-gray-50">
               <div class="w-10/12">
-                <p class="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">60%</p>
+                <p class="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">
+                  {{ tx.createdAt * 1000 | date: 'dd/MM/yyyy HH:mm' }}
+                </p>
                 <div class="flex flex-start bg-blue-gray-50 overflow-hidden w-full rounded-sm font-sans text-xs font-medium h-1">
-                  <div class="flex justify-center items-center h-full bg-gradient-to-tr from-blue-600 to-blue-400 text-white" style="width: 60%;"></div>
+                  <div
+                    class="flex justify-center items-center h-full bg-gradient-to-tr from-blue-600 to-blue-400 text-white"
+                    [style.width.%]="100">
+                  </div>
                 </div>
               </div>
             </td>
           </tr>
-          <tr>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="flex items-center gap-4">
-                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Add Progress Track</p>
-              </div>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$3,000</p>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="w-10/12">
-                <p class="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">10%</p>
-                <div class="flex flex-start bg-blue-gray-50 overflow-hidden w-full rounded-sm font-sans text-xs font-medium h-1">
-                  <div class="flex justify-center items-center h-full bg-gradient-to-tr from-blue-600 to-blue-400 text-white" style="width: 10%;"></div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="flex items-center gap-4">
-                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Fix Platform Errors</p>
-              </div>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">Not set</p>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="w-10/12">
-                <p class="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">100%</p>
-                <div class="flex flex-start bg-blue-gray-50 overflow-hidden w-full rounded-sm font-sans text-xs font-medium h-1">
-                  <div class="flex justify-center items-center h-full bg-gradient-to-tr from-green-600 to-green-400 text-white" style="width: 100%;"></div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="flex items-center gap-4">
-                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Launch our Mobile App</p>
-              </div>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$20,500</p>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="w-10/12">
-                <p class="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">100%</p>
-                <div class="flex flex-start bg-blue-gray-50 overflow-hidden w-full rounded-sm font-sans text-xs font-medium h-1">
-                  <div class="flex justify-center items-center h-full bg-gradient-to-tr from-green-600 to-green-400 text-white" style="width: 100%;"></div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="flex items-center gap-4">
-                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Add the New Pricing Page</p>
-              </div>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$500</p>
-            </td>
-            <td class="py-3 px-5 border-b border-blue-gray-50">
-              <div class="w-10/12">
-                <p class="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">25%</p>
-                <div class="flex flex-start bg-blue-gray-50 overflow-hidden w-full rounded-sm font-sans text-xs font-medium h-1">
-                  <div class="flex justify-center items-center h-full bg-gradient-to-tr from-blue-600 to-blue-400 text-white" style="width: 25%;"></div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          
         </tbody>
+        
       </table>
     </div>
   </div>
 </div>
+

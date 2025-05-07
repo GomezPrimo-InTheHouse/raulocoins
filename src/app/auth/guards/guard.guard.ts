@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const isLoggedIn = !!localStorage.getItem('token'); // o lo que uses para validar sesión
+  const isLoggedIn = !!localStorage.getItem('totpToken'); 
 
   if (!isLoggedIn) {
     // Redirige al login si no está logueado
