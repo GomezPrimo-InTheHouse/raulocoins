@@ -29,6 +29,9 @@ export class AuthService {
   private userSubject = new BehaviorSubject<userData[]>([]);
   user$ = this.userSubject.asObservable();
 
+  private transactionsSubject = new BehaviorSubject<any[]>([])
+  transactions$ = this.transactionsSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   login(alias: string, totpToken: string, email:string): Observable<any> {
@@ -36,6 +39,11 @@ export class AuthService {
       username: alias,
       totpToken: totpToken
     }
+
+    this.getDataTransactions(body).then((data)=>{
+      console.log(data)
+  })
+
     let userEmail:string | any = email
 
     return this.http.post(`${this.apiUrl}/api/user-details`, body).pipe(
@@ -45,27 +53,34 @@ export class AuthService {
         // emitir los datos del usuario mediante un behaviorSubject
         if(response.success){
           this.setUser(response.user);
-
-          await this.searchUsers(body.username).then((responseFromBack: any) => {
-            console.log(responseFromBack);
-            // if (responseFromBack.success) {
-              
-              
-
-            // } else {
-            //   console.error('Error fetching user details');
-            // }
-          })
+          
+          
+          // await this.searchUsers(body.username).then((responseFromBack: any) => {
+          //   console.log(responseFromBack);
+           
+          // })
           
         }
-        // localStorage.setItem('user', JSON.stringify({ username }));
-
-
 
       }
     )
-  )}
+    
+  )
 
+
+}
+
+  async getDataTransactions(body:any):Promise<any>{
+    console.log('pidiendo datos al' , `${this.apiUrl}/api/transactions`, body)
+
+    return this.http.post(`${this.apiUrl}/api/transactions`, body).pipe(
+      tap( (response: any) =>{
+        console.log(response);
+        // this.setTransactions(response.transactions)
+      })
+    )
+    
+  }
  
 
   async searchUsers(alias: string): Promise<any> {
@@ -73,6 +88,10 @@ export class AuthService {
     const params = new HttpParams().set('q', alias);
     console.log(params)
     return this.http.get<any>(`${this.apiUrl}/search-users`, { params });
+  }
+
+  setTransactions(data:any){
+    this.transactionsSubject.next(data)
   }
 
   
@@ -90,6 +109,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('user');
+    localStorage.removeItem('totpToken')
     this.router.navigate(['auth/login']);
   }
 }

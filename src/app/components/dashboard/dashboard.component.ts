@@ -18,7 +18,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export default class DashboardComponent {
   userInfo: any
   user!: dataUsuario
-  transactions!: dataTransactions[];
+  transactions!: dataTransactions[] ;
 
   apiUrl = 'https://raulocoin.onrender.com';
 
@@ -31,40 +31,29 @@ export default class DashboardComponent {
       console.log(this.user); 
     });
 
+    
+
 
     this.getItemsFromLocalStorage().then((items) => {
       const alias = items.alias;
       const totpToken = items.totpToken;
       console.log(alias, totpToken);
 
-      this.componentService.getUserDetails(alias, totpToken).subscribe((response: any) => {
+      
+
+      // inicio de solucion
+    this.componentService.getUserDetailsOnce(alias, totpToken).subscribe((response: any) => {
+      if (response?.transactions) {
         console.log(response.transactions);
-        if (response.success) {
-          this.transactions = response.transactions;
-          this.cdr.detectChanges();
-          console.log(this.transactions[0]);
-        } else {
-          console.error('Error fetching user details');
-        }
-      });
+        this.transactions = response.transactions;
+      } else {
+        console.warn('No se pudieron obtener las transacciones');
+      }
     });
-    // this.getItemsFromLocalStorage().then((items) => {
-    //   const alias = items.alias;
-    //   const totpToken = items.totpToken;
-    //   console.log(alias, totpToken);
-
-    //    this.componentService.getUserDetails(alias, totpToken).then((response: any) => {
-    //     console.log(response.transactions);
-    //     if (response.success) {
-    //       this.transactions = response.transactions;
-    //       console.log(this.transactions);
-    //     } else {
-    //       console.error('Error fetching user details');
-    //     }
-    //   })
-    // })
-
+    // fin
+    });
     
+    console.log(this.transactions);
   }
 
   async getItemsFromLocalStorage() {
