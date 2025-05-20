@@ -22,7 +22,7 @@
     <div>
         <h2 style="font-size: 40px; font-weight: 700; color: #48b72f;">
 
-            R$ 19
+            R$ {{user.balance}}
         </h2>
      </div>
     <div class="relative mt-12 w-full max-w-lg sm:mt-10">
@@ -36,9 +36,9 @@
                 </p>
             </div>
             <div class="p-6 pt-0">
-                <form>
+                <!-- <form>
                     <div>
-                        <div>
+                        
                             <div
                                 class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 
                                 focus-within:ring focus-within:ring-sky-300/30">
@@ -46,13 +46,8 @@
                                     <label
                                         class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Username</label>
                                     <div class="absolute right-3 translate-y-2 text-green-200">
-                                                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor" class="w-6 h-6">
-                                                    <path fill-rule="evenodd"
-                                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                                                        clip-rule="evenodd" />
-                                                </svg> -->
-                                            </div>
+                                                
+                                    </div>
                                 </div>
                                 <input type="text" name="username" placeholder="Username"
                                     autocomplete="off"
@@ -60,7 +55,7 @@
                                     file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 
                                     file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7 text-foreground">
                             </div>
-                        </div>
+                        
                     </div>
                     <div class="mt-4">
                         <div>
@@ -77,6 +72,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mt-4">
+                        <div>
+                            <div
+                                class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                                <div class="flex justify-between">
+                                    <label
+                                        class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Cantidad</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="alias" name="alias"
+                                        class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        
+                            <div
+                                class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                                <div class="flex justify-between">
+                                    <label
+                                        class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Alias</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="alias" name="alias"
+                                        class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
+                                </div>
+                            </div>
+                        
+                    </div>
                     <div class="mt-4 flex items-center justify-between">
                         <label class="flex items-center gap-2">
                             <input type="checkbox" name="remember"
@@ -91,7 +116,106 @@
                             class="font-semibold hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black h-10 px-4 py-2"
                             type="submit">Transferir</button>
                     </div>
-                </form>
+                </form> -->
+            
+                <form [formGroup]="transferForm" (ngSubmit)="submit()">
+                    <!-- From Username -->
+                    <div class="mt-4">
+                        <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                          <div class="flex justify-between">
+                            <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                              Desde (Usuario)
+                            </label>
+                          </div>
+                          <div class="flex items-center">
+                            <input type="text" formControlName="fromUsername"
+                              class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                              placeholder="Nombre de usuario emisor" />
+                          </div>
+                        </div>
+                      </div>
+
+                    <!-- To Username -->
+                    <div class="mt-4">
+                        <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                          <div class="flex justify-between">
+                            <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                              Hacia (Usuario)
+                            </label>
+                          </div>
+                          <div class="flex items-center">
+                            <input type="text" formControlName="toUsername"
+                              class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                              placeholder="Nombre de usuario receptor" />
+                          </div>
+                        </div>
+                      </div>
+                  
+                    <!-- TOTP Token -->
+                    <div class="mt-4">
+                      <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                        <div class="flex justify-between">
+                          <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                            TOTP Token
+                          </label>
+                        </div>
+                        <div class="flex items-center">
+                          <input type="text" formControlName="totpToken"
+                            class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                            placeholder="Código de autenticación" />
+                        </div>
+                      </div>
+                    </div>
+                  
+                    
+                  
+                  
+                    <!-- Amount -->
+                    <div class="mt-4">
+                      <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                        <div class="flex justify-between">
+                          <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                            Monto
+                          </label>
+                        </div>
+                        <div class="flex items-center">
+                          <input type="number" min="1" formControlName="amount"
+                            class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                            placeholder="Ingrese monto a transferir" />
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <!-- Description -->
+                    <div class="mt-4">
+                      <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                        <div class="flex justify-between">
+                          <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                            Descripción
+                          </label>
+                        </div>
+                        <div class="flex items-center">
+                          <input type="text" formControlName="description"
+                            class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                            placeholder="Motivo o nota" />
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <!-- Botón de enviar -->
+                    <div class="mt-6">
+                      <button type="submit"
+                        class="w-full rounded-lg bg-sky-600 text-white py-2 text-sm hover:bg-sky-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        [disabled]="transferForm.invalid || isLoading">
+                        {{ isLoading ? 'Procesando...' : 'Enviar Transferencia' }}
+                      </button>
+                    </div>
+                  
+                    <!-- Mensaje -->
+                    <div class="mt-4 text-sm text-center text-muted-foreground" *ngIf="message">
+                      {{ message }}
+                    </div>
+                  </form>
             </div>
         </div>
     </div>

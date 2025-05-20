@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
-
+import { catchError, Observable, of, tap , switchMap} from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +31,7 @@ export class ComponentService {
     return this.http.post(`${this.apiUrl}/api/transactions`, body).pipe(
       tap((response: any) => {
         if (response?.success) {
-          this.userDetailsCache = response; // ✅ Guardamos la respuesta
+          this.userDetailsCache = response; 
         }
       }),
       catchError((error) => {
@@ -53,5 +53,65 @@ export class ComponentService {
 
   // fin soclucion
 
+   verifyToken(email:string, totpToken: string): Observable<any> {
+    const body = {
+      username: email,
+      totpToken: totpToken
+    }
+
+    return this.http.post(`${this.apiUrl}/api/verify-token`, body);
+
+   }
+
+   sendTransfer(
+  fromUsername: string,
+  toUsername: string,
+  amount: number,
+  description: string,
+  operationToken: string,
+
+    ): Observable<any> {
+    const body = {
+      fromUsername,
+      toUsername,
+      amount,
+      description,
+      operationToken
+    };
+
+  return this.http.post(`${this.apiUrl}/api/transfer`, body);
+}
+   
+   realizarTransferencia(email: string, amount: any, totpToken: any, description:string, fromUsername:any, toUsername:any): void {
+
+    
+    
+    this.verifyToken(email, totpToken)
+      .pipe(
+        switchMap((rta:any) => {
+          const operationToken = rta?.operationToken;
+
+          if (!operationToken) {
+            throw new Error('Token de operación no recibido');
+          }
+          // Si verifyToken fue exitoso y operationToken existe, pasao a hacer la transferencia
+          return this.sendTransfer(toUsername, fromUsername, amount, description, operationToken, );
+        }),
+        catchError((error:any) => {
+          // Si falla verifyToken o sendTransfer, se captura acá
+
+          console.error('Error durante el proceso:', error);
+          return of(null); // o lanzar otra lógica
+        })
+      )
+      .subscribe(result => {
+        if (result) {
+          console.log('Transferencia exitosa:', result);
+          // Podés mostrar un mensaje, navegar, etc.
+        } else {
+          console.log('Fallo en la verificación o transferencia.');
+        }
+      });
+  }
  
 }

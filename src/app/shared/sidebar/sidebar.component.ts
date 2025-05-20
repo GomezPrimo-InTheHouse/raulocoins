@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NgClass, NgFor } from '@angular/common';
+import { AuthService } from '../../auth/services/auth-service.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class SidebarComponent {
     { label: 'Profile', link: '/home/profile' },
     { label: 'Settings', link: '/home/transactions' },
   ]
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService:AuthService) {}
 
   
 
@@ -30,6 +31,10 @@ export class SidebarComponent {
   // goToDashboard() {
   //   this.router.navigate(['/home/dashboard']);
   // }
+  logout() {
+    this.authService.logout();
+    
+  }
 
 
 }
