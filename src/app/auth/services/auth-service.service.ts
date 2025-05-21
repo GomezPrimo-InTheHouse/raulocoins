@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { Observable, tap, BehaviorSubject, switchMap } from 'rxjs';
 
 export interface userData {
   balance: number;
@@ -34,53 +34,72 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(alias: string, totpToken: string, email:string): Observable<any> {
-    const body ={
-      username: alias,
-      totpToken: totpToken
-    }
+//   login(alias: string, totpToken: string, email:string): Observable<any> {
+//     const body ={
+//       username: alias,
+//       totpToken: totpToken
+//     }
 
-    this.getDataTransactions(body).then((data)=>{
-      console.log(data)
-  })
+//   //   this.getDataTransactions(body).then((data)=>{
+//   //     console.log(data)
+//   // })
 
-    let userEmail:string | any = email
+//     let userEmail:string | any = email
 
-    return this.http.post(`${this.apiUrl}/api/user-details`, body).pipe(
-      tap(async (response: any) =>{
+//     return this.http.post(`${this.apiUrl}/api/user-details`, body).pipe(
+//       tap(async (response: any) =>{
         
-        console.log(response);
-        // emitir los datos del usuario mediante un behaviorSubject
-        if(response.success){
-          this.setUser(response.user);
+//         console.log(response);
+//         // emitir los datos del usuario mediante un behaviorSubject
+//         if(response.success){
+//           this.setUser(response.user);
           
           
-          // await this.searchUsers(body.username).then((responseFromBack: any) => {
-          //   console.log(responseFromBack);
+//           // await this.searchUsers(body.username).then((responseFromBack: any) => {
+//           //   console.log(responseFromBack);
            
-          // })
+//           // })
           
-        }
+//         }
 
-      }
-    )
+//       }
+//     )
     
-  )
+//   )
 
 
+// }
+
+
+login(alias: string, totpToken: string, email: string): Observable<any> {
+  const body = {
+    username: alias,
+    totpToken: totpToken
+  };
+
+  return this.http.post(`${this.apiUrl}/api/user-details`, body).pipe(
+    tap((response: any) => {
+     
+
+      if (response.success) {
+        this.setUser(response.user);
+      }
+    }),
+    switchMap(() => this.getDataTransactions(body)),
+    tap((transactionResponse: any) => {
+      console.log('Final response (transacciones):', transactionResponse);
+    })
+  );
 }
 
-  async getDataTransactions(body:any):Promise<any>{
-    console.log('pidiendo datos al' , `${this.apiUrl}/api/transactions`, body)
-
-    return this.http.post(`${this.apiUrl}/api/transactions`, body).pipe(
-      tap( (response: any) =>{
-        console.log(response);
-        // this.setTransactions(response.transactions)
-      })
-    )
-    
-  }
+getDataTransactions(body: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/api/transactions`, body).pipe(
+    tap((response: any) => {
+      console.log('Transacciones:', response);
+      this.setTransactions(response.transactions);
+    })
+  );
+}
  
 
   async searchUsers(alias: string): Promise<any> {

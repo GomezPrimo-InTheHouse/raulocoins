@@ -43,20 +43,36 @@ export class LoginComponent {
       localStorage.setItem('email', email);
       
       this.authService.login(alias, codigo, email).subscribe(
-        (response:any) => {
+
+
+        {
+          next: (response:any) => {
+            console.log(response);
+            
+            this.router.navigate(['home/dashboard']);
+
+          },
+          error: (error: any) =>
+            {
+              console.log(error);
+              alert('Error al iniciar sesion');
+            }
+        }
+
+        // (response:any) => {
          
 
-          if(response.success){
+          // if(response.success){
 
 
 
-            // Guardamos el token en el localStorage
+          //   // Guardamos el token en el localStorage
             
 
-            this.router.navigate(['home/dashboard']);
-          }
+          //   this.router.navigate(['home/dashboard']);
+          // }
           // Redirigir a la pagina de dashboard
-        }
+        // }
         
       );
 

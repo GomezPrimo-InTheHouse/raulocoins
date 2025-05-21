@@ -15,6 +15,7 @@ export default class TransactionsComponent {
   message: string = '';
   isLoading = false;
   user!: dataUsuario
+  newBalance!: number;
 
   constructor(private fb: FormBuilder, private componentService: ComponentService, private authService:AuthService) { }
 
@@ -26,14 +27,16 @@ export default class TransactionsComponent {
       console.log(this.user); 
     });
 
-    //obtener el usuaio logueado para obtener el email
-    const fromUsername = localStorage.getItem('email');
+
+
+
+    //Pedir al localStoragexx el usuaio logueado para obtener el email
+    // const fromUsername = localStorage.getItem('alias');
 
 
 
     this.transferForm = this.fb.group({
-      fromUsername: [fromUsername],
-      
+     
       totpToken: ['', Validators.required],
       toUsername: ['', Validators.required],
       amount: [0, [Validators.required, Validators.min(1)]],
@@ -42,24 +45,33 @@ export default class TransactionsComponent {
   }
 
   async submit() {
+    console.log(this.transferForm.value);
+
     if (this.transferForm.invalid) return;
 
     this.message = '';
     this.isLoading = true;
 
     try {
-      const {
-        email,
+      const {   
+        
         totpToken,
-        fromUsername,
         toUsername,
         amount,
         description
       } = this.transferForm.value;
 
-      const result = this.componentService.realizarTransferencia(email, amount, totpToken, description, fromUsername, toUsername);
-      console.log(result);
+      const result = this.componentService.realizarTransferencia( totpToken, toUsername, amount , description );
+       console.log(result);
       this.message = 'Transferencia realizada con éxito.';
+
+      // const result = this.componentService.verifyToken(totpToken).subscribe(
+      // (rta:any)=>{
+      //   console.log(rta);
+      //   return result
+      // }
+      // )
+     
     } catch (err: any) {
       console.error(err);
       this.message = 'Error en la transferencia: ' + (err?.error?.message || 'verificá los datos.');
@@ -67,4 +79,8 @@ export default class TransactionsComponent {
       this.isLoading = false;
     }
   }
+
+  
+
+
 }

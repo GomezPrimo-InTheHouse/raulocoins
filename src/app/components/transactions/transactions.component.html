@@ -36,91 +36,11 @@
                 </p>
             </div>
             <div class="p-6 pt-0">
-                <!-- <form>
-                    <div>
-                        
-                            <div
-                                class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 
-                                focus-within:ring focus-within:ring-sky-300/30">
-                                <div class="flex justify-between">
-                                    <label
-                                        class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Username</label>
-                                    <div class="absolute right-3 translate-y-2 text-green-200">
-                                                
-                                    </div>
-                                </div>
-                                <input type="text" name="username" placeholder="Username"
-                                    autocomplete="off"
-                                    class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 
-                                    file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 
-                                    file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7 text-foreground">
-                            </div>
-                        
-                    </div>
-                    <div class="mt-4">
-                        <div>
-                            <div
-                                class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
-                                <div class="flex justify-between">
-                                    <label
-                                        class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Alias</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="alias" name="alias"
-                                        class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <div>
-                            <div
-                                class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
-                                <div class="flex justify-between">
-                                    <label
-                                        class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Cantidad</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="alias" name="alias"
-                                        class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        
-                            <div
-                                class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
-                                <div class="flex justify-between">
-                                    <label
-                                        class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">Alias</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="alias" name="alias"
-                                        class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground">
-                                </div>
-                            </div>
-                        
-                    </div>
-                    <div class="mt-4 flex items-center justify-between">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" name="remember"
-                                class="outline-none focus:outline focus:outline-sky-300">
-                            <span class="text-xs">Enviar comprobante</span>
-                        </label>
-                       
-                    </div>
-                    <div class="mt-4 flex items-center justify-end gap-x-2">
-                        
-                        <button
-                            class="font-semibold hover:bg-black hover:text-white hover:ring hover:ring-white transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-black h-10 px-4 py-2"
-                            type="submit">Transferir</button>
-                    </div>
-                </form> -->
+
             
                 <form [formGroup]="transferForm" (ngSubmit)="submit()">
                     <!-- From Username -->
-                    <div class="mt-4">
+                    <!-- <div class="mt-4">
                         <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
                           <div class="flex justify-between">
                             <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
@@ -128,12 +48,12 @@
                             </label>
                           </div>
                           <div class="flex items-center">
-                            <input type="text" formControlName="fromUsername"
+                            <input type="text" 
                               class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
                               placeholder="Nombre de usuario emisor" />
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                     <!-- To Username -->
                     <div class="mt-4">
@@ -151,22 +71,7 @@
                         </div>
                       </div>
                   
-                    <!-- TOTP Token -->
-                    <div class="mt-4">
-                      <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
-                        <div class="flex justify-between">
-                          <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
-                            TOTP Token
-                          </label>
-                        </div>
-                        <div class="flex items-center">
-                          <input type="text" formControlName="totpToken"
-                            class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
-                            placeholder="Código de autenticación" />
-                        </div>
-                      </div>
-                    </div>
-                  
+                    
                     
                   
                   
@@ -201,6 +106,22 @@
                         </div>
                       </div>
                     </div>
+                    <!-- TOTP Token -->
+                    <div class="mt-4">
+                      <div class="group relative rounded-lg border focus-within:border-sky-200 px-3 pb-1.5 pt-2.5 duration-200 focus-within:ring focus-within:ring-sky-300/30">
+                        <div class="flex justify-between">
+                          <label class="text-xs font-medium text-muted-foreground group-focus-within:text-white text-gray-400">
+                            TOTP Token
+                          </label>
+                        </div>
+                        <div class="flex items-center">
+                          <input type="text" formControlName="totpToken"
+                            class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                            placeholder="Código de autenticación" />
+                        </div>
+                      </div>
+                    </div>
+                  
                   
                     <!-- Botón de enviar -->
                     <div class="mt-6">
@@ -211,10 +132,8 @@
                       </button>
                     </div>
                   
-                    <!-- Mensaje -->
-                    <div class="mt-4 text-sm text-center text-muted-foreground" *ngIf="message">
-                      {{ message }}
-                    </div>
+                    
+                    
                   </form>
             </div>
         </div>

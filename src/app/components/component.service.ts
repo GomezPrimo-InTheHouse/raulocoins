@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap , switchMap} from 'rxjs';
+import { catchError, Observable, of, tap , switchMap, BehaviorSubject} from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +10,12 @@ export class ComponentService {
 //importar apiUrl desde el environment.ts
   private apiUrl = 'https://raulocoin.onrender.com';
   private userDetailsCache: any = null
+  router: any;
+// private userSubject = new BehaviorSubject<userData[]>([]);
+//   user$ = this.userSubject.asObservable();
+  private newBalanceSubject = new BehaviorSubject<number>(0);
+  newBalance$ = this.newBalanceSubject.asObservable();
+  
   constructor(private http:HttpClient) { }
 
   getUserDetails(alias: any, totpToken: any) {
@@ -19,52 +26,20 @@ export class ComponentService {
     return this.http.post(`${this.apiUrl}/api/transactions`, body);
   }
 
-  // inicio soclucion
-  getUserDetailsOnce(alias: string | any, totpToken: string | any): Observable<any> {
-    // Si ya cacheamos la respuesta, la devolvemos directamente
-    if (this.userDetailsCache) {
-      return of(this.userDetailsCache);
-    }
 
-    // Si no, hacemos la llamada por única vez
-    const body = { username: alias, totpToken };
-    return this.http.post(`${this.apiUrl}/api/transactions`, body).pipe(
-      tap((response: any) => {
-        if (response?.success) {
-          this.userDetailsCache = response; 
-        }
-      }),
-      catchError((error) => {
-        console.error('Error en getUserDetailsOnce', error);
-        return of(null);
-      })
-    );
-  }
-
-  // Para obtener lo cacheado sin repetir llamada
-  getCachedUserDetails(): any {
-    return this.userDetailsCache;
-  }
-
-  // Para limpiar si cerrás sesión o reiniciás
-  clearUserDetailsCache() {
-    this.userDetailsCache = null;
-  }
-
-  // fin soclucion
-
-   verifyToken(email:string, totpToken: string): Observable<any> {
+   verifyToken(totpToken: string): Observable<any> {
+    
     const body = {
-      username: email,
+      username: "jgp.raulo",
       totpToken: totpToken
     }
-
-    return this.http.post(`${this.apiUrl}/api/verify-token`, body);
+    console.log('Verificando token, en CmpSERVICE:', body);
+    return this.http.post(`${this.apiUrl}/api/verify-totp`, body);
 
    }
 
    sendTransfer(
-  fromUsername: string,
+  
   toUsername: string,
   amount: number,
   description: string,
@@ -72,21 +47,23 @@ export class ComponentService {
 
     ): Observable<any> {
     const body = {
-      fromUsername,
+      fromUsername : "jgp.raulo",
       toUsername,
       amount,
       description,
       operationToken
     };
-
+    console.log(`${this.apiUrl}/api/transfer`, body);
+    // console.log('Cuerpo de la solicitud:', body);
   return this.http.post(`${this.apiUrl}/api/transfer`, body);
 }
    
-   realizarTransferencia(email: string, amount: any, totpToken: any, description:string, fromUsername:any, toUsername:any): void {
+   realizarTransferencia( totpToken: any, toUsername:any, amount: any,  description:string,): void {
 
     
     
-    this.verifyToken(email, totpToken)
+    this.verifyToken( totpToken)
+    
       .pipe(
         switchMap((rta:any) => {
           const operationToken = rta?.operationToken;
@@ -95,7 +72,7 @@ export class ComponentService {
             throw new Error('Token de operación no recibido');
           }
           // Si verifyToken fue exitoso y operationToken existe, pasao a hacer la transferencia
-          return this.sendTransfer(toUsername, fromUsername, amount, description, operationToken, );
+          return this.sendTransfer(toUsername, amount, description, operationToken );
         }),
         catchError((error:any) => {
           // Si falla verifyToken o sendTransfer, se captura acá
@@ -104,14 +81,41 @@ export class ComponentService {
           return of(null); // o lanzar otra lógica
         })
       )
-      .subscribe(result => {
+
+      .subscribe((result:any) => {
+        console.log('Resultado de la transferencia:', result);
+        let newBalace = result?.from.newBalance;
+        // como enviar este dato al dashboard mediante el observable ?
+
+        this.setNewBalance(newBalace);
         if (result) {
           console.log('Transferencia exitosa:', result);
           // Podés mostrar un mensaje, navegar, etc.
+
+          
+          Swal.fire({
+            title: "Transferencia exitosa",
+            text: "La transferencia se realizó correctamente.",
+            icon: "success",
+            timer: 1500,
+
+          }).then(()=> {
+            this.router.navigate(['/home/dashboard']);
+          })
+
         } else {
           console.log('Fallo en la verificación o transferencia.');
         }
       });
   }
+
+  getNewBalance(): Observable<number> {
+    return this.newBalance$;
+  }
  
+
+  setNewBalance(newBalance: number) {
+    this.newBalanceSubject.next(newBalance);
+  
+  }
 }

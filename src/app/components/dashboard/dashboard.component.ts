@@ -19,6 +19,7 @@ export default class DashboardComponent {
   userInfo: any
   user!: dataUsuario
   transactions!: dataTransactions[] ;
+  newBalance!: number;
 
   apiUrl = 'https://raulocoin.onrender.com';
 
@@ -28,41 +29,22 @@ export default class DashboardComponent {
     this.authService.user$.subscribe((user: dataUsuario | any) => {
       
       this.user = user;
-      console.log(this.user); 
-    });
-
-    
-
-
-    this.getItemsFromLocalStorage().then((items) => {
-      const alias = items.alias;
-      const totpToken = items.totpToken;
-      console.log(alias, totpToken);
-
       
-
-      // inicio de solucion
-    this.componentService.getUserDetailsOnce(alias, totpToken).subscribe((response: any) => {
-      if (response?.transactions) {
-        console.log(response.transactions);
-        this.transactions = response.transactions;
-      } else {
-        console.warn('No se pudieron obtener las transacciones');
-      }
     });
-    // fin
-    });
-    
-    console.log(this.transactions);
-  }
-
-  async getItemsFromLocalStorage() {
-    const alias = localStorage.getItem('alias');
-    const totpToken = localStorage.getItem('totpToken');
-    return { alias, totpToken };
 
     
+
+    this.authService.transactions$.subscribe((transactions: dataTransactions[] | any) => {
+      this.transactions = transactions;
+     
+    });
+
+    
+
+
   }
+
+  
 
   
 }
