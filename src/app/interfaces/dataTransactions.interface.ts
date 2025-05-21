@@ -3,5 +3,6 @@ export interface dataTransactions {
     amount: number,
     description: string,
     createdAt: number,
-    fromUsername: string
+    fromUsername: string,
+    toName: string,
 }

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { AuthService} from '../../auth/services/auth-service.service';
 import { dataUsuario} from '../../interfaces/dataUsuario.interface';
+import { dataTransactions } from '../../interfaces/dataTransactions.interface';
 import { ComponentService } from '../component.service';
 import { NgFor } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { dataTransactions } from '../../interfaces/dataTransactions.interface';
 import { ChangeDetectorRef } from '@angular/core';
 
 

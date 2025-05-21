@@ -15,7 +15,7 @@ export class SidebarComponent {
   menuItems = [
     { label: 'Dashboard', link: '/home/dashboard' },
     { label: 'Profile', link: '/home/profile' },
-    { label: 'Settings', link: '/home/transactions' },
+    { label: 'Transfers', link: '/home/transactions' },
   ]
   constructor(private router: Router, private authService:AuthService) {}
 

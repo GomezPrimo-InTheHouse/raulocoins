@@ -1,2 +1,54 @@
     
-<p style="color: aliceblue;">PROFILE WORKS!</p>
+<div class="min-h-screen bg-gray-100 flex flex-col items-center p-4 md:p-10">
+  <!-- Card de Perfil -->
+  <div class="w-full max-w-4xl bg-white shadow-xl rounded-2xl p-6 md:p-10 mb-8">
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+      <!-- Avatar -->
+      <img
+        [src]=" 'https://i.pravatar.cc/100'"
+        alt="User Avatar"
+        class="w-24 h-24 rounded-full border-4 border-indigo-500 shadow-md"
+      />
+
+      <!-- Info Usuario -->
+      <div class="text-center md:text-left">
+        <h2 class="text-2xl font-semibold text-gray-800">{{ user?.name }}</h2>
+        <p class="text-gray-500">{{ user?.email }}</p>
+        <p class="mt-2 text-lg text-indigo-600 font-medium">
+          Saldo: {{ user?.balance | currency:'USD':'symbol' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de Transferencias -->
+  <div class="w-full max-w-4xl bg-white shadow-xl rounded-2xl p-6 md:p-8">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Historial de transferencias</h3>
+    
+    <div class="h-80 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+      <ng-container *ngFor="let tx of transactions">
+        <div class="flex justify-between items-center bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-sm">
+          <div>
+            <p class="text-sm text-gray-700 font-medium">Para: {{ tx.toName }} </p>
+        </div>
+
+        <div>
+              <p class="text-xs text-gray-400"> Descripcion: {{ tx.description }} </p>
+
+          </div>
+          <p
+            class="text-right font-semibold"
+            [ngClass]="tx.amount > 0 ? 'text-green-500' : 'text-red-500'"
+          >
+            {{ tx.amount > 0 ? '+' : '-' }}{{ tx.amount | currency:'USD':'symbol' }}
+          </p>
+        </div>
+      </ng-container>
+
+      <ng-template #noTransfers>
+        <p class="text-gray-400 text-center">No hay transferencias aún.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+

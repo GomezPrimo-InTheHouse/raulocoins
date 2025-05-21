@@ -10,8 +10,10 @@
     </div>
     <!-- today's money - aca podria ir la cantidad de raulocoins -->
     <div class="p-4 text-right">
-      <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today's Money</p>
-      <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">$ {{newBalance ? newBalance : user.balance}}</h4>
+      <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today's RauloCoins</p>
+      <h4
+      style="font-size: 30px; font-weight: 700; color: #48b72f;" 
+      class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">R$ {{newBalance ? newBalance : user.balance}}</h4>
       
     </div>
 
@@ -76,12 +78,10 @@
     </div>
   </div> -->
 </div>
-
 <div class="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-1">
   <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden xl:col-span-2">
-    <div 
-    style="background-color: rgb(57, 50, 156) !important;"
-    class="text-white bg-clip-border rounded-xl overflow-hidden bg-transparent  0 shadow-none m-0 flex items-center justify-between p-6">
+ <div
+  class="bg-blue-700 shadow-lg text-white bg-clip-padding rounded-xl overflow-hidden m-0 flex items-center justify-between p-6">
       <div >
         <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-blue-gray-900 mb-1">Ultimas Transferencias Recibidas</h6>
         <!-- <p class="antialiased font-sans text-sm leading-normal flex items-center gap-1 font-normal text-blue-gray-600">

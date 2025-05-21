@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../auth/services/auth-service.service';
+import { AuthService, userData } from '../../auth/services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +9,19 @@ import { AuthService } from '../../auth/services/auth-service.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  user!:userData;
+
   constructor(private authService: AuthService) { }
 
     logout() {
     this.authService.logout();
     
+  }
+
+  ngOnInit() {
+    this.authService.user$.subscribe((user: any) => {
+      this.user = user;
+      
+    })
   }
 }
