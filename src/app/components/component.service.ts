@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap , switchMap, BehaviorSubject} from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,13 +12,13 @@ export class ComponentService {
 //importar apiUrl desde el environment.ts
   private apiUrl = 'https://raulocoin.onrender.com';
   private userDetailsCache: any = null
-  router: any;
+  
 // private userSubject = new BehaviorSubject<userData[]>([]);
 //   user$ = this.userSubject.asObservable();
   private newBalanceSubject = new BehaviorSubject<number>(0);
   newBalance$ = this.newBalanceSubject.asObservable();
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router) { }
 
   getUserDetails(alias: any, totpToken: any) {
     const body = {
@@ -84,10 +86,11 @@ export class ComponentService {
 
       .subscribe((result:any) => {
         console.log('Resultado de la transferencia:', result);
-        let newBalace = result?.from.newBalance;
+        // let newBalace = result?.from.newBalance;
         // como enviar este dato al dashboard mediante el observable ?
 
-        this.setNewBalance(newBalace);
+        // this.setNewBalance(newBalace);
+
         if (result) {
           console.log('Transferencia exitosa:', result);
           // Podés mostrar un mensaje, navegar, etc.
