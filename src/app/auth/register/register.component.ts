@@ -40,7 +40,7 @@ export class RegisterComponent {
   onSubmit(){
     // console.log(this.registerForm.value);
     if (this.registerForm.valid) {
-      console.log('Registrado con éxito', this.registerForm.value.alias);
+      // console.log('Registrado con éxito', this.registerForm.value.alias);
       let alias = this.registerForm.value.alias;
       let email = this.registerForm.value.email;
       

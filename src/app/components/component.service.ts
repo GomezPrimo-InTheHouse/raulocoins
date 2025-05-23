@@ -35,7 +35,7 @@ export class ComponentService {
       username: "jgp.raulo",
       totpToken: totpToken
     }
-    console.log('Verificando token, en CmpSERVICE:', body);
+    // console.log('Verificando token, en CmpSERVICE:', body);
     return this.http.post(`${this.apiUrl}/api/verify-totp`, body);
 
    }
@@ -55,7 +55,7 @@ export class ComponentService {
       description,
       operationToken
     };
-    console.log(`${this.apiUrl}/api/transfer`, body);
+    // console.log(`${this.apiUrl}/api/transfer`, body);
     // console.log('Cuerpo de la solicitud:', body);
   return this.http.post(`${this.apiUrl}/api/transfer`, body);
 }
@@ -85,14 +85,14 @@ export class ComponentService {
       )
 
       .subscribe((result:any) => {
-        console.log('Resultado de la transferencia:', result);
+        // console.log('Resultado de la transferencia:', result);
         // let newBalace = result?.from.newBalance;
         // como enviar este dato al dashboard mediante el observable ?
 
         // this.setNewBalance(newBalace);
 
         if (result) {
-          console.log('Transferencia exitosa:', result);
+          // console.log('Transferencia exitosa:', result);
           // Podés mostrar un mensaje, navegar, etc.
 
           
@@ -107,7 +107,7 @@ export class ComponentService {
           })
 
         } else {
-          console.log('Fallo en la verificación o transferencia.');
+          // console.log('Fallo en la verificación o transferencia.');
         }
       });
   }

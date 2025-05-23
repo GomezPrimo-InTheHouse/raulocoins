@@ -47,14 +47,14 @@ export class LoginComponent {
 
         {
           next: (response:any) => {
-            console.log(response);
+            // console.log(response);
             
             this.router.navigate(['home/dashboard']);
 
           },
           error: (error: any) =>
             {
-              console.log(error);
+              // console.log(error);
               alert('Error al iniciar sesion');
             }
         }

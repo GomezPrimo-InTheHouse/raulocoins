@@ -24,7 +24,7 @@ export default class TransactionsComponent {
     this.authService.user$.subscribe((user: dataUsuario | any) => {
       
       this.user = user;
-      console.log(this.user); 
+      // console.log(this.user); 
     });
 
 
@@ -45,7 +45,7 @@ export default class TransactionsComponent {
   }
 
   async submit() {
-    console.log(this.transferForm.value);
+    // console.log(this.transferForm.value);
 
     if (this.transferForm.invalid) return;
 
@@ -62,7 +62,7 @@ export default class TransactionsComponent {
       } = this.transferForm.value;
 
       const result = this.componentService.realizarTransferencia( totpToken, toUsername, amount , description );
-       console.log(result);
+      //  console.log(result);
       this.message = 'Transferencia realizada con éxito.';
 
       // const result = this.componentService.verifyToken(totpToken).subscribe(

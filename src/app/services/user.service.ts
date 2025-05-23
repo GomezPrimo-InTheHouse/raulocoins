@@ -28,7 +28,7 @@ private readonly API_URL = 'https://api.raulocoins.com'
     const params = new HttpParams().set('q', termino);
     const response = this.http.get<SearchUsersResponse>(`${this.API_URL}/search-users`, { params });
     
-    console.log(response);
+    // console.log(response);
 
     return response; 
     //si o si todos los observables deben retornar alguna respuesta, sino tiene un error

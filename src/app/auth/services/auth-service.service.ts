@@ -34,41 +34,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-//   login(alias: string, totpToken: string, email:string): Observable<any> {
-//     const body ={
-//       username: alias,
-//       totpToken: totpToken
-//     }
 
-//   //   this.getDataTransactions(body).then((data)=>{
-//   //     console.log(data)
-//   // })
-
-//     let userEmail:string | any = email
-
-//     return this.http.post(`${this.apiUrl}/api/user-details`, body).pipe(
-//       tap(async (response: any) =>{
-        
-//         console.log(response);
-//         // emitir los datos del usuario mediante un behaviorSubject
-//         if(response.success){
-//           this.setUser(response.user);
-          
-          
-//           // await this.searchUsers(body.username).then((responseFromBack: any) => {
-//           //   console.log(responseFromBack);
-           
-//           // })
-          
-//         }
-
-//       }
-//     )
-    
-//   )
-
-
-// }
 
 
 login(alias: string, totpToken: string, email: string): Observable<any> {
@@ -87,7 +53,7 @@ login(alias: string, totpToken: string, email: string): Observable<any> {
     }),
     switchMap(() => this.getDataTransactions(body)),
     tap((transactionResponse: any) => {
-      console.log('Final response (transacciones):', transactionResponse);
+      // console.log('Final response (transacciones):', transactionResponse);
     })
   );
 }
@@ -95,7 +61,7 @@ login(alias: string, totpToken: string, email: string): Observable<any> {
 getDataTransactions(body: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/api/transactions`, body).pipe(
     tap((response: any) => {
-      console.log('Transacciones:', response);
+      // console.log('Transacciones:', response);
       this.setTransactions(response.transactions);
     })
   );
@@ -103,9 +69,9 @@ getDataTransactions(body: any): Observable<any> {
  
 
   async searchUsers(alias: string): Promise<any> {
-    console.log(alias)
+    // console.log(alias)
     const params = new HttpParams().set('q', alias);
-    console.log(params)
+    // console.log(params)
     return this.http.get<any>(`${this.apiUrl}/search-users`, { params });
   }
 
